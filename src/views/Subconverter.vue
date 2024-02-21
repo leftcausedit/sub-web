@@ -180,6 +180,7 @@ const project = process.env.VUE_APP_PROJECT
 const remoteConfigSample = process.env.VUE_APP_SUBCONVERTER_REMOTE_CONFIG
 const gayhubRelease = process.env.VUE_APP_BACKEND_RELEASE
 const defaultBackend = process.env.VUE_APP_SUBCONVERTER_DEFAULT_BACKEND + '/sub?'
+const defaultConfig = process.env.VUE_APP_SUBCONVERTER_DEFAULT_CONFIG
 const shortUrlBackend = process.env.VUE_APP_MYURLS_API
 const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_API
 const tgBotLink = process.env.VUE_APP_BOT_LINK
@@ -393,6 +394,11 @@ export default {
           ? defaultBackend
           : this.form.customBackend;
 
+      let config = 
+        this.form.remoteConfig === ""
+          ? defaultConfig
+          : this.form.remoteConfig
+
       let sourceSub = this.form.sourceSubUrl;
       sourceSub = sourceSub.replace(/(\n|\r|\n\r)/g, "|");
 
@@ -403,7 +409,9 @@ export default {
         "&url=" +
         encodeURIComponent(sourceSub) +
         "&insert=" +
-        this.form.insert;
+        this.form.insert + 
+        "&config=" + 
+        config;
 
       if (this.advanced === "2") {
         if (this.form.remoteConfig !== "") {

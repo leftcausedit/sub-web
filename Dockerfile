@@ -2,6 +2,8 @@
 FROM node:16-alpine AS build
 WORKDIR /app
 COPY . .
+RUN yarn config set disturl https://npm.taobao.org/dist
+RUN yarn config set registry https://registry.npm.taobao.org
 RUN yarn install
 RUN yarn build
 
